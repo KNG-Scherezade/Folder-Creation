@@ -13,17 +13,18 @@ echo.
 
 if %max%==-1 EXIT /B 1
 echo will set %max% classes
-echo Subdirectory structure of CutFiles,Decoration,Design,Worktichet
-echo enter "NEW" to create custom subdirectory structure
-echo enter "CUSTOM" to add to current subdirectory structure
-echo enter nothing to use default 'CutFiles, Decoration, Design and Worktichet'
-set /p "setting=Setting: "
+echo Default subdirectory structure of CutFiles,Decoration,Design,Worktichet
+echo 	enter "NEW" to create custom subdirectory structure
+echo 	enter "CUSTOM" to add to current subdirectory structure
+echo 	enter nothing to use defaults
+set /p "setting=Enter Settings(CUSTOM/NEW/enter): "
 
 echo.
 set loop_no=0
-if "!setting!" equ "NEW" (
+
+if "!setting!" == "NEW" (
 	echo Setting new subdirectories
-	:new-subdir		
+	:new-subdir
 	echo enter nothing to escape
 	echo enter subdirectory to loop
 	echo.
@@ -37,10 +38,10 @@ if "!setting!" equ "NEW" (
 	set subdirectory[!loop_no!]=!subdir!
 	echo.
 	set /a real_subdir=!loop_no!+1
-	echo 	%real_subdir% subdirectories
+	echo 	!real_subdir! subdirectories
 	for /l %%i in (0,1,!loop_no!) do ( 
 		set /a actual=%%i+1
-		echo !actual! - !subdirectory[%%i]!)
+		echo !actual! - !subdirectory[%%i]!
 	)
 	set /a loop_no=!loop_no!+1
 	echo.
@@ -54,15 +55,16 @@ set subdirectory[2]=Design
 set subdirectory[3]=Worktichet
 set loop_no=3
 
-if "!setting!" equ "CUSTOM" (
+if "!setting!" == "CUSTOM" (
 	echo Setting custom subdirectories
 	:custom-subdir		
 	echo.
 	set /a real_subdir=!loop_no!+1
-	echo 	%real_subdir% subdirectories
+	echo 	!real_subdir! subdirectories
 	for /l %%i in (0,1,!loop_no!) do ( 
 		echo %%i - !subdirectory[%%i]!
 	)
+	set /a loop_no=!loop_no!+1
 	echo enter nothing to escape
 	echo enter subdirectory to loop and add to current
 	echo.
@@ -74,8 +76,6 @@ if "!setting!" equ "CUSTOM" (
 		goto :exit-setup
 	)
 	set subdirectory[!loop_no!]=!subdir!
-	set /a loop_no=!loop_no!+1
-	echo !loop_no!
 	echo.
 	
 	goto :custom-subdir
