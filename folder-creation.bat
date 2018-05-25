@@ -13,7 +13,7 @@ echo.
 
 if %max%==-1 EXIT /B 1
 echo will set %max% classes
-echo Default subdirectory structure of CutFiles,Decoration,Design,Worktichet
+echo Default subdirectory structure of CutFiles,Decoration,Design,Workticket
 echo 	enter "NEW" to create custom subdirectory structure
 echo 	enter "CUSTOM" to add to current subdirectory structure
 echo 	enter nothing to use defaults
@@ -52,12 +52,12 @@ if "!setting!" == "NEW" (
 set subdirectory[0]=CutFiles
 set subdirectory[1]=Decoration
 set subdirectory[2]=Design
-set subdirectory[3]=Worktichet
+set subdirectory[3]=Workticket
 set loop_no=3
 
 if "!setting!" == "CUSTOM" (
 	echo Setting custom subdirectories
-	:custom-subdir		
+	:custom-subdir
 	echo.
 	set /a real_subdir=!loop_no!+1
 	echo 	!real_subdir! subdirectories
@@ -83,6 +83,27 @@ if "!setting!" == "CUSTOM" (
 
 
 :exit-setup
+
+REM echo build subdirectories of subdirectories?
+REM set /p "response=YES/enter: "
+
+REM if "!response!" == "YES" (
+	REM set current_level[0]=!loop_no!
+	REM :additional-setup
+	REM for /l %%i in (0,1,%current_level[0]%) do (
+		REM echo %%i - !subdirectory[%%i]!
+	REM )
+	REM set /p "num=enter number to expand: "
+	
+	REM set subdirectory[%loop_no%,0]=test
+	REM echo !subdirectory[%loop_no%,0]!
+	
+	REM echo Continue?
+	REM set /p "contresponse=YES/enter: "
+	REM if "!contresponse!" == "YES" (
+		REM goto :additional-setup
+	REM )
+REM )
 pause
 
 echo.
